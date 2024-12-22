@@ -1,14 +1,9 @@
 pipeline {
     agent any
     environment {
-        DOCKER_IMAGE = "anil8064/java-app:latest"
+        DOCKER_IMAGE = 'anil8064/java-app:latest'
     }
     stages {
-        stage('Checkout Code') {
-            steps {
-                git url: 'https://github.com/polagonianil/java-application-k8s.git', branch: 'main'
-            }
-        }
         stage('Build Java Application') {
             steps {
                 bat 'mvn clean package'
@@ -25,10 +20,12 @@ pipeline {
         }
         stage('Deploy to Kubernetes') {
             steps {
-                bat """
-                kubectl apply -f k8s/Doployment.yaml
-                kubectl apply -f k8s/service.yaml
-                """
+                withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) {
+                    bat """
+                    kubectl apply -f k8s/Deployment.yaml
+                    kubectl apply -f k8s/Service.yaml
+                    """
+                }
             }
         }
     }
