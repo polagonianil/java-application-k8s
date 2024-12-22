@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: java-e2e-testing-app
+  labels:
+    app: java-e2e-testing-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: java-e2e-testing-app
+  template:
+    metadata:
+      labels:
+        app: java-e2e-testing-app
+    spec:
+      containers:
+      - name: java-e2e-testing-app
+        image: your-docker-image:latest
+        ports:
+        - containerPort: 8080
+        env:
+        - name: SPRING_PROFILES_ACTIVE
+          value: "prod"
