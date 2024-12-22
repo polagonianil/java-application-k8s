@@ -2,7 +2,7 @@
 FROM openjdk:11-jdk-slim
 
 # Add a label to the image
-LABEL maintainer="you@example.com"
+LABEL maintainer="polagonianilgoud@gmail.com"
 
 # Set the working directory
 WORKDIR /app
