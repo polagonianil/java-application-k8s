@@ -26,7 +26,7 @@ pipeline {
         stage('Deploy to Kubernetes') {
             steps {
                 bat """
-                kubectl apply -f k8s/deployment.yaml
+                kubectl apply -f k8s/Doployment.yaml
                 kubectl apply -f k8s/service.yaml
                 """
             }
